@@ -7,7 +7,12 @@
   max-width: 960px;
   padding: 16px;
 }
-
+input {
+  height: 32px;
+  padding-left: 10px;
+  border-radius: 4px;
+  border-color: #2f2f37;
+}
 .example code {
   font-family: monospace;
   font-size: 16px;
@@ -17,7 +22,18 @@
   padding: 2px 6px;
   border-radius: 2px;
 }
-
+.submit-btn {
+  background-color: #cacadd;
+  border-radius: 5px;
+  border-color: transparent;
+  padding: 5px 10px;
+  color: #212128;
+}
+.submit-btn:focus,
+.submit-btn:hover {
+  background-color: #2f2f37;
+  color: #cacadd;
+}
 .example .background {
   height: 240px;
   // ❗️❗️❗️ The path to images from a SASS file

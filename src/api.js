@@ -20,6 +20,6 @@ export async function getNews(searchQuery, page = 1) {
   const { data } = await axios.get(
     `${URL}?key=${API_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`
   );
-
+  console.log(data);
   return data;
 }

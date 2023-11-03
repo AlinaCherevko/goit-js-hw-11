@@ -8,6 +8,7 @@ const inputEl = document.querySelector('input');
 const buttonEl = document.querySelector('button');
 const divEl = document.querySelector('.gallery');
 const loadMoreBtnEl = document.querySelector('.load-more');
+
 let page = 1;
 const perPage = 40;
 let searchValue = '';
@@ -31,7 +32,7 @@ async function onSubmitClick(event) {
     page = 1;
     const { hits, totalHits } = await getNews(value);
 
-    console.log(hits, totalHits);
+    // console.log(hits, totalHits);
 
     if (hits.length === 0) {
       clearHitsList();
@@ -43,14 +44,16 @@ async function onSubmitClick(event) {
 
       return;
     }
-
     clearHitsList();
     Notify.success(`'Hooray! We found ${totalHits} images.'`);
     getHitsMarkup(hits);
     loadMoreBtnEl.style.display = 'block';
+    formEl.reset();
   }
 }
+
 function getHitsMarkup(hits) {
+  console.log(hits);
   const markupList = hits
     .map(
       ({
@@ -73,8 +76,10 @@ function getHitsMarkup(hits) {
     )
     .join('');
   divEl.insertAdjacentHTML('beforeend', markupList);
+
   const lightbox = new SimpleLightbox('.photo_link');
   lightbox.refresh();
+
   //   divEl.innerHTML = markupList;
 }
 
@@ -98,3 +103,13 @@ async function onLoadMoreClick() {
     return;
   }
 }
+// безкінечний скрол:
+function handleScroll() {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+  if (scrollTop + clientHeight >= scrollHeight - 5) {
+    loadMoreBtnEl.style.display = 'none';
+    onLoadMoreClick();
+  }
+}
+window.addEventListener('scroll', handleScroll);
